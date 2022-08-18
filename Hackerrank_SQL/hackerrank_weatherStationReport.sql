@@ -96,3 +96,55 @@ The symbol | is basically the "OR" you are referring to.
 but what is the meaning of ^ b/w aeiou brackets EX -[^aeiou]
 The ^ inside the brackets says that we can use any letter EXCEPT aeiou. If there was no ^ then it would be the 5 letters aeiou, which is not what we want.
 */
+
+/* Weather Observation Station 12 */
+SELECT DISTINCT(CITY)FROM STATION WHERE CITY REGEXP '^[^aeiou]' AND CITY REGEXP '[^aeiou]$';
+
+/* Higher than 75 marks*/
+select name from students where marks > 75 order by right(name,3), id ;
+/*
+purpose of id in the end?
+Because: "If two or more students both have names ending in the same last three characters (i.e.: Bobby, Robby, etc.), secondary sort them by ascending ID."
+*/
+
+/* Employee names */
+SELECT NAME FROM EMPLOYEE ORDER BY NAME;
+select name from employee order by name asc;
+
+/* Emplyee salaries */
+SELECT name FROM Employee WHERE salary > 2000 AND months < 10 ORDER BY employee_id;
+
+/* Weather observation station 16 */
+SELECT ROUND(MIN(LAT_N), 4) FROM STATION WHERE LAT_N > 38.7780;
+
+/* Weather observation station 17 */
+select round(long_w, 4) from station group by long_w, lat_n having min(lat_n) > 38.7780 order by lat_n limit 1;
+
+/* Weather observation station 18 */
+SELECT ROUND(ABS(A-C)+ABS(B-D),4)
+FROM
+    (SELECT 
+    MIN(LAT_N)  AS A,
+    MIN(LONG_W) AS B,
+    MAX(LAT_N)  AS C,
+    MAX(LONG_W) AS D
+    FROM STATION)
+    AS T1;
+
+/* Weather observation station 19 */    
+SELECT
+    ROUND(SQRT(
+        POWER(MAX(LAT_N)  - MIN(LAT_N),  2)
+      + POWER(MAX(LONG_W) - MIN(LONG_W), 2)
+    ), 4)
+FROM 
+    STATION;
+
+/* Type of triangle */
+SELECT CASE
+    WHEN 2 * GREATEST(A, B, C) >= (A + B + C) THEN "Not A Triangle"
+    WHEN A = B AND A = C                      THEN "Equilateral"
+    WHEN A = B OR A = C OR B = C              THEN "Isosceles"
+                                              ELSE "Scalene"
+    END
+FROM TRIANGLES
